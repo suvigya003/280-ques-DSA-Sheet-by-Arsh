@@ -1,0 +1,27 @@
+Problem link: https://leetcode.com/problems/reorder-list/
+
+Solution:
+class Solution {
+public:
+    void reorderList(ListNode* head) {
+        if(head->next==NULL)return;
+        stack<ListNode*>st;
+        ListNode*f=head;
+        int cnt=0;
+        while(f){
+            cnt++;
+            st.push(f);
+            f=f->next;
+        }
+        f=head;
+        ListNode* t;
+        for(int i=0;i<cnt/2;i++){
+            t=st.top();
+            st.pop();
+            t->next=f->next;
+            f->next=t;
+            f=t->next;
+        }
+        f->next=NULL;
+    }
+};
