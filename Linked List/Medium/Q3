@@ -1,0 +1,72 @@
+Problem link: https://leetcode.com/problems/add-two-numbers-ii/
+
+Solution:
+class Solution {
+public:
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        stack<ListNode*>st1;
+        stack<ListNode*>st2;
+        ListNode*temp=l1;
+        while(temp){
+            st1.push(temp);
+            temp=temp->next;
+        }
+        temp=l2;
+        while(temp){
+            st2.push(temp);
+            temp=temp->next;
+        }
+        int sum=0,c=0;
+        ListNode*o=st1.top(),*t=st2.top();
+        st1.pop();
+        st2.pop();
+        sum=o->val+t->val;
+        c=sum/10;
+        sum%=10;
+        ListNode*temp1=new ListNode(sum);;
+        cout<<sum<<" "<<c<<endl;
+        
+        while(!st1.empty()&&!st2.empty()){
+            o=st1.top();
+        t=st2.top();
+            int s=o->val+t->val+c;
+        c=s/10;
+        s%=10;
+            cout<<sum<<" "<<c<<endl;
+            ListNode*p=new ListNode(s);
+            p->next=temp1;
+            temp1=p;
+            st1.pop();
+            st2.pop();
+        }
+        while(!st1.empty()){
+            o=st1.top();
+            int s=o->val+c;
+            c=s/10;
+        s%=10;
+            cout<<s<<" "<<c<<endl;
+            ListNode*p=new ListNode(s);
+            p->next=temp1;
+            temp1=p;
+        st1.pop();
+        }
+        while(!st2.empty()){
+            t=st2.top();
+            int s=t->val+c;
+            c=s/10;
+        s%=10;
+            cout<<s<<" "<<c<<endl;
+            ListNode*p=new ListNode(s);
+            p->next=temp1;
+            temp1=p;
+       st2.pop();
+        }
+        if(c){
+          ListNode*p=new ListNode(c);
+            p->next=temp1;
+            temp1=p;  
+        }
+        cout<<c<<endl;
+        return temp1;
+    }
+};
