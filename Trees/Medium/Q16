@@ -1,0 +1,36 @@
+Problem link: https://practice.geeksforgeeks.org/problems/min-distance-between-two-given-nodes-of-a-binary-tree/1
+
+Solution:
+class Solution {
+public:
+    vector<vector<int>> zigzagLevelOrder(TreeNode* root) {
+        vector<vector<int>>v;
+        if(root==NULL)return v;
+        int flag=0;
+        queue<TreeNode*>dq;
+        dq.push(root);
+        while(!dq.empty()){
+            vector<int>res;
+            int s=dq.size();
+            for(int i=0;i<s;i++){
+              TreeNode* temp=  dq.front();
+                if(temp->left)dq.push(temp->left);
+                if(temp->right)dq.push(temp->right);
+                res.push_back(temp->val);
+                dq.pop();
+            }
+            if(flag==0){
+                v.push_back(res);
+                flag=1;
+            res.clear();
+            }
+            else {
+                reverse(res.begin(),res.end());
+                v.push_back(res);
+                flag=0;   
+                res.clear();
+                 }
+        }
+        return v;
+    }
+};
